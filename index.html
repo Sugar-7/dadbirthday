@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生日快乐🎉</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#ffd1ff);
+  font-family:"Microsoft Yahei",sans-serif;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+}
+h1{
+  font-size:clamp(2.2rem,8vw,3.5rem);
+  text-shadow:0 3px 12px rgba(0,0,0,0.25);
+  margin-bottom:24px;
+  animation:beat 1.2s infinite;
+}
+@keyframes beat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.06);}
+}
+.text-box{
+  font-size:clamp(1rem,4vw,1.4rem);
+  line-height:2;
+  max-width:90%;
+  text-shadow:0 2px 8px rgba(0,0,0,0.18);
+}
+#tip{
+  position:fixed;
+  bottom:40px;
+  font-size:14px;
+  opacity:0.85;
+}
+/* 飘落礼花元素 */
+.fall-item{
+  position:fixed;
+  top:-80px;
+  font-size:28px;
+  pointer-events:none;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{
+    transform:translateY(105vh) rotate(360deg);
+  }
+}
+</style>
+</head>
+<body>
+<h1>🎂 祝宝贝生日快乐 🎂</h1>
+<div class="text-box">
+<p>愿你岁岁常欢愉</p>
+<p>年年皆胜意</p>
+<p>平安喜乐，万事顺意✨</p>
+<p>所有美好如期而至</p>
+<p>一定会有一位 一眼万年 的美女 从天而降 来到你的身边❥(^_-)</p>
+</div>
+<div id="tip">点击页面开启音乐 🎵</div>
+
+<audio id="bgMusic" loop>
+<!-- 生日快乐音乐，在线资源，微信内可播放 -->
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+
+
+<script>
+const music = document.getElementById('bgMusic');
+//微信浏览器需要用户点击才允许播放音乐
+document.body.addEventListener('click',()=>{
+  music.play().catch(e=>{});
+},{once:true});
+
+//生成飘落蛋糕气球
+function createFall(){
+  const emojis=['🎂','🎈','✨','🎁','💐','🥳','💖'];
+  const el=document.createElement('div');
+  el.className='fall-item';
+  el.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  el.style.left=Math.random()*100+'vw';
+  const dur=4+Math.random()*5;
+  el.style.animationDuration=dur+'s';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),dur*1000);
+}
+//持续生成飘落效果
+setInterval(createFall,280);
+</script>
+</body>
+</html>
